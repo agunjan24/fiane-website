@@ -1,93 +1,67 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FaFacebook,
   FaInstagram,
   FaTwitter,
   FaExternalLinkAlt,
-  FaPlay,
 } from "react-icons/fa";
 
 function FacebookEmbed() {
-  const [loaded, setLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(500);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        // Leave some padding room inside the card
+        const w = containerRef.current.offsetWidth;
+        setWidth(Math.min(w, 500));
+      }
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   return (
-    <div className="social-embed flex flex-col items-center">
-      {!loaded && (
-        <button
-          onClick={() => setLoaded(true)}
-          className="flex flex-col items-center justify-center w-full h-[500px] bg-white rounded-xl border-2 border-dashed border-blue-200 hover:border-blue-400 transition-colors cursor-pointer group"
-        >
-          <div className="w-16 h-16 rounded-full bg-[#1877F2] flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-            <FaPlay size={20} className="ml-1" />
-          </div>
-          <span className="text-lg font-semibold text-gray-700">
-            Load Facebook Feed
-          </span>
-          <span className="text-sm text-gray-400 mt-1">
-            Click to load the latest posts from @FIANewEngland
-          </span>
-        </button>
-      )}
-      {loaded && (
-        <iframe
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFIANewEngland&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-          width="500"
-          height="600"
-          style={{
-            border: "none",
-            overflow: "hidden",
-            maxWidth: "100%",
-            borderRadius: "12px",
-          }}
-          allowFullScreen
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          title="FIANE Facebook Feed"
-        />
-      )}
+    <div ref={containerRef} className="w-full flex justify-center">
+      <iframe
+        src={`https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFIANewEngland&tabs=timeline&width=${width}&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId`}
+        width={width}
+        height="600"
+        style={{
+          border: "none",
+          overflow: "hidden",
+          borderRadius: "12px",
+        }}
+        allowFullScreen
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        title="FIANE Facebook Feed"
+      />
     </div>
   );
 }
 
 function InstagramEmbed() {
-  const [loaded, setLoaded] = useState(false);
-
   return (
-    <div className="social-embed flex flex-col items-center">
-      {!loaded && (
-        <button
-          onClick={() => setLoaded(true)}
-          className="flex flex-col items-center justify-center w-full h-[500px] bg-white rounded-xl border-2 border-dashed border-pink-200 hover:border-pink-400 transition-colors cursor-pointer group"
-        >
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-            <FaPlay size={20} className="ml-1" />
-          </div>
-          <span className="text-lg font-semibold text-gray-700">
-            Load Instagram Feed
-          </span>
-          <span className="text-sm text-gray-400 mt-1">
-            Click to load the latest posts from @fia_newengland
-          </span>
-        </button>
-      )}
-      {loaded && (
-        <iframe
-          src="https://www.instagram.com/fia_newengland/embed"
-          width="500"
-          height="600"
-          style={{
-            border: "none",
-            overflow: "hidden",
-            maxWidth: "100%",
-            borderRadius: "12px",
-            background: "#fff",
-          }}
-          allowFullScreen
-          allow="encrypted-media"
-          title="FIANE Instagram Feed"
-        />
-      )}
+    <div className="w-full flex justify-center">
+      <iframe
+        src="https://www.instagram.com/fia_newengland/embed"
+        className="w-full"
+        height="600"
+        style={{
+          border: "none",
+          overflow: "hidden",
+          borderRadius: "12px",
+          background: "#fff",
+          maxWidth: "500px",
+        }}
+        allowFullScreen
+        allow="encrypted-media"
+        title="FIANE Instagram Feed"
+      />
     </div>
   );
 }
@@ -165,10 +139,10 @@ export default function SocialFeed() {
           </a>
         </div>
 
-        {/* Embedded feeds */}
+        {/* Embedded feeds - stacked on mobile, side by side on desktop */}
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Facebook Feed */}
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+          <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 border border-gray-100 overflow-hidden">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <FaFacebook className="text-[#1877F2]" />
               Facebook Feed
@@ -177,7 +151,7 @@ export default function SocialFeed() {
           </div>
 
           {/* Instagram Feed */}
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+          <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 border border-gray-100 overflow-hidden">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <FaInstagram className="text-[#DD2A7B]" />
               Instagram Feed
