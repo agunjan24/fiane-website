@@ -7,6 +7,7 @@ import {
   FaTwitter,
   FaExternalLinkAlt,
 } from "react-icons/fa";
+import ScrollReveal from "./ScrollReveal";
 
 function FacebookEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,7 +16,6 @@ function FacebookEmbed() {
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
-        // Leave some padding room inside the card
         const w = containerRef.current.offsetWidth;
         setWidth(Math.min(w, 500));
       }
@@ -34,7 +34,7 @@ function FacebookEmbed() {
         style={{
           border: "none",
           overflow: "hidden",
-          borderRadius: "12px",
+          borderRadius: "16px",
         }}
         allowFullScreen
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -54,7 +54,7 @@ function InstagramEmbed() {
         style={{
           border: "none",
           overflow: "hidden",
-          borderRadius: "12px",
+          borderRadius: "16px",
           background: "#fff",
           maxWidth: "500px",
         }}
@@ -66,130 +66,138 @@ function InstagramEmbed() {
   );
 }
 
+const socialCards = [
+  {
+    icon: FaFacebook,
+    label: "Facebook",
+    handle: "@FIANewEngland",
+    href: "https://www.facebook.com/FIANewEngland/",
+    gradient: "from-blue-50 to-blue-100/30",
+    border: "border-blue-100",
+    iconBg: "bg-[#1877F2]",
+    hoverColor: "group-hover:text-[#1877F2]",
+  },
+  {
+    icon: FaInstagram,
+    label: "Instagram",
+    handle: "@fia_newengland",
+    href: "https://www.instagram.com/fia_newengland/",
+    gradient: "from-pink-50 to-purple-50",
+    border: "border-pink-100",
+    iconBg: "bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF]",
+    hoverColor: "group-hover:text-[#DD2A7B]",
+  },
+  {
+    icon: FaTwitter,
+    label: "X (Twitter)",
+    handle: "@FIANewEngland",
+    href: "https://x.com/FIANewEngland",
+    gradient: "from-gray-50 to-gray-100/30",
+    border: "border-gray-100",
+    iconBg: "bg-black",
+    hoverColor: "group-hover:text-black",
+  },
+];
+
 export default function SocialFeed() {
   return (
-    <section id="social" className="py-24 bg-white">
+    <section id="social" className="py-28 bg-white relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-sm font-semibold uppercase tracking-widest text-saffron">
+        <ScrollReveal>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-saffron">
             Stay Connected
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">
-            Latest from Social Media
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] text-gray-900 leading-tight">
+            Latest from{" "}
+            <span className="italic text-usa-blue">Social Media</span>
           </h2>
-          <div className="mt-4 flex justify-center gap-1">
-            <span className="h-1 w-8 rounded-full bg-saffron" />
-            <span className="h-1 w-8 rounded-full bg-india-green" />
-            <span className="h-1 w-8 rounded-full bg-usa-blue" />
-          </div>
-          <p className="mt-6 text-lg text-gray-600">
-            Follow us on social media for the latest updates, event photos, and
-            community news.
+          <p className="mt-4 text-lg text-gray-400 max-w-xl">
+            Follow us for the latest updates, event photos, and community news.
           </p>
+        </ScrollReveal>
+
+        {/* Social link cards */}
+        <div className="grid md:grid-cols-3 gap-5 mt-10 mb-12">
+          {socialCards.map((card, i) => (
+            <ScrollReveal key={card.label} delay={i * 100}>
+              <a
+                href={card.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-br ${card.gradient} border ${card.border} hover:shadow-lg transition-all duration-300`}
+              >
+                <div
+                  className={`flex-shrink-0 w-12 h-12 rounded-xl ${card.iconBg} flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <card.icon size={24} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className={`font-semibold text-gray-900 ${card.hoverColor} transition-colors`}>
+                    {card.label}
+                  </div>
+                  <div className="text-sm text-gray-400">{card.handle}</div>
+                </div>
+                <FaExternalLinkAlt className="text-gray-200 group-hover:text-gray-400 transition-colors flex-shrink-0" size={12} />
+              </a>
+            </ScrollReveal>
+          ))}
         </div>
 
-        {/* Social links cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <a
-            href="https://www.facebook.com/FIANewEngland/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-100 hover:shadow-lg transition-all duration-300"
-          >
-            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-[#1877F2] flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-              <FaFacebook size={28} />
-            </div>
-            <div className="flex-1">
-              <div className="font-semibold text-gray-900">Facebook</div>
-              <div className="text-sm text-gray-500">@FIANewEngland</div>
-            </div>
-            <FaExternalLinkAlt className="text-gray-300 group-hover:text-blue-500 transition-colors" />
-          </a>
-
-          <a
-            href="https://www.instagram.com/fia_newengland/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-100/50 border border-pink-100 hover:shadow-lg transition-all duration-300"
-          >
-            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-              <FaInstagram size={28} />
-            </div>
-            <div className="flex-1">
-              <div className="font-semibold text-gray-900">Instagram</div>
-              <div className="text-sm text-gray-500">@fia_newengland</div>
-            </div>
-            <FaExternalLinkAlt className="text-gray-300 group-hover:text-pink-500 transition-colors" />
-          </a>
-
-          <a
-            href="https://x.com/FIANewEngland"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-100 hover:shadow-lg transition-all duration-300"
-          >
-            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-black flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-              <FaTwitter size={28} />
-            </div>
-            <div className="flex-1">
-              <div className="font-semibold text-gray-900">X (Twitter)</div>
-              <div className="text-sm text-gray-500">@FIANewEngland</div>
-            </div>
-            <FaExternalLinkAlt className="text-gray-300 group-hover:text-gray-700 transition-colors" />
-          </a>
-        </div>
-
-        {/* Embedded feeds - stacked on mobile, side by side on desktop */}
+        {/* Embedded feeds */}
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Facebook Feed */}
-          <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 border border-gray-100 overflow-hidden">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <FaFacebook className="text-[#1877F2]" />
-              Facebook Feed
-            </h3>
-            <FacebookEmbed />
-          </div>
+          <ScrollReveal delay={100}>
+            <div className="bg-gray-50/80 rounded-2xl p-4 sm:p-6 border border-gray-100 overflow-hidden">
+              <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <FaFacebook className="text-[#1877F2]" />
+                Facebook Feed
+              </h3>
+              <FacebookEmbed />
+            </div>
+          </ScrollReveal>
 
-          {/* Instagram Feed */}
-          <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 border border-gray-100 overflow-hidden">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <FaInstagram className="text-[#DD2A7B]" />
-              Instagram Feed
-            </h3>
-            <InstagramEmbed />
-          </div>
+          <ScrollReveal delay={200}>
+            <div className="bg-gray-50/80 rounded-2xl p-4 sm:p-6 border border-gray-100 overflow-hidden">
+              <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <FaInstagram className="text-[#DD2A7B]" />
+                Instagram Feed
+              </h3>
+              <InstagramEmbed />
+            </div>
+          </ScrollReveal>
         </div>
 
-        {/* Follow CTA bar */}
-        <div className="mt-8 grid sm:grid-cols-3 gap-4">
-          <a
-            href="https://www.facebook.com/FIANewEngland/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-4 bg-[#1877F2] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
-          >
-            <FaFacebook size={20} />
-            Follow on Facebook
-          </a>
-          <a
-            href="https://www.instagram.com/fia_newengland/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
-          >
-            <FaInstagram size={20} />
-            Follow on Instagram
-          </a>
-          <a
-            href="https://x.com/FIANewEngland"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-4 bg-black text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
-          >
-            <FaTwitter size={20} />
-            Follow on X
-          </a>
-        </div>
+        {/* Follow CTA */}
+        <ScrollReveal className="mt-10">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="https://www.facebook.com/FIANewEngland/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#1877F2] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity text-sm"
+            >
+              <FaFacebook size={16} />
+              Follow on Facebook
+            </a>
+            <a
+              href="https://www.instagram.com/fia_newengland/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity text-sm"
+            >
+              <FaInstagram size={16} />
+              Follow on Instagram
+            </a>
+            <a
+              href="https://x.com/FIANewEngland"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-black text-white font-semibold rounded-xl hover:opacity-90 transition-opacity text-sm"
+            >
+              <FaTwitter size={16} />
+              Follow on X
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,105 +1,126 @@
 "use client";
 
 import { FaInstagram } from "react-icons/fa";
+import ScrollReveal from "./ScrollReveal";
 
 const galleryItems = [
   {
-    title: "India Day Parade 2025",
-    description: "Celebrating at Boston Harbor",
-    gradient: "from-saffron to-usa-red",
-    icon: "🇮🇳",
+    title: "India Day Parade",
+    subtitle: "Boston Harbor, 2025",
+    gradient: "from-saffron via-saffron-dark to-usa-red",
+    span: "md:col-span-2 md:row-span-2",
+    aspect: "aspect-square",
+    size: "text-2xl sm:text-3xl",
   },
   {
-    title: "Women's Day 2025",
-    description: "JFK Presidential Library",
-    gradient: "from-purple-500 to-pink-500",
-    icon: "🌸",
+    title: "Women's Day",
+    subtitle: "JFK Library, 2025",
+    gradient: "from-purple-600 via-pink-500 to-rose-400",
+    span: "",
+    aspect: "aspect-square",
+    size: "text-lg",
   },
   {
-    title: "MLK Day Health Camp",
-    description: "Burlington, MA",
-    gradient: "from-usa-blue to-india-navy",
-    icon: "🏥",
+    title: "Health Camp",
+    subtitle: "MLK Day, Burlington",
+    gradient: "from-usa-blue via-usa-blue-light to-india-navy",
+    span: "",
+    aspect: "aspect-square",
+    size: "text-lg",
   },
   {
-    title: "Republic Day Celebration",
-    description: "Cultural Performances",
-    gradient: "from-saffron via-white to-india-green",
-    icon: "🎭",
+    title: "Republic Day",
+    subtitle: "Cultural Performances",
+    gradient: "from-saffron to-amber-400",
+    span: "md:col-span-2",
+    aspect: "aspect-[2/1]",
+    size: "text-xl",
   },
   {
-    title: "Community Fundraiser",
-    description: "Food Pantry Donation Drive",
-    gradient: "from-india-green to-teal-500",
-    icon: "🤝",
+    title: "Diwali",
+    subtitle: "Festival of Lights",
+    gradient: "from-amber-600 via-orange-500 to-saffron",
+    span: "",
+    aspect: "aspect-square",
+    size: "text-lg",
   },
   {
-    title: "Diwali Celebration",
-    description: "Festival of Lights",
-    gradient: "from-amber-500 to-saffron",
-    icon: "🪔",
+    title: "Community Service",
+    subtitle: "Food Pantry Drive",
+    gradient: "from-india-green via-emerald-500 to-teal-400",
+    span: "",
+    aspect: "aspect-square",
+    size: "text-lg",
   },
 ];
 
 export default function Gallery() {
   return (
-    <section id="gallery" className="py-24 bg-cream">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-sm font-semibold uppercase tracking-widest text-saffron">
-            Our Moments
-          </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">
-            Gallery
-          </h2>
-          <div className="mt-4 flex justify-center gap-1">
-            <span className="h-1 w-8 rounded-full bg-saffron" />
-            <span className="h-1 w-8 rounded-full bg-white border border-gray-200" />
-            <span className="h-1 w-8 rounded-full bg-india-green" />
-          </div>
-          <p className="mt-6 text-lg text-gray-600">
-            Highlights from our events and celebrations. Follow us on{" "}
+    <section id="gallery" className="py-28 bg-cream relative overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-india-green/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-[100px]" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+        <ScrollReveal>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-saffron">
+                Our Moments
+              </span>
+              <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] text-gray-900 leading-tight">
+                Event <span className="italic text-usa-blue">Gallery</span>
+              </h2>
+            </div>
             <a
               href="https://www.instagram.com/fia_newengland/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-saffron hover:text-saffron-dark font-medium"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-usa-blue text-white font-semibold rounded-full hover:bg-usa-blue-light transition-colors text-sm self-start sm:self-auto"
             >
-              Instagram
-            </a>{" "}
-            for more photos.
-          </p>
-        </div>
+              <FaInstagram size={16} />
+              More on Instagram
+            </a>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {/* Masonry-style grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {galleryItems.map((item, index) => (
-            <div
+            <ScrollReveal
               key={index}
-              className={`group relative aspect-square rounded-2xl bg-gradient-to-br ${item.gradient} overflow-hidden cursor-pointer`}
+              delay={index * 80}
+              animation="reveal-scale"
+              className={item.span}
             >
-              {/* Overlay content */}
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex flex-col items-center justify-center text-white p-4">
-                <span className="text-4xl mb-3">{item.icon}</span>
-                <h3 className="text-lg font-bold text-center">{item.title}</h3>
-                <p className="text-sm text-white/80 text-center mt-1">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+              <div
+                className={`group relative ${item.aspect} rounded-2xl bg-gradient-to-br ${item.gradient} overflow-hidden cursor-pointer w-full h-full`}
+              >
+                {/* Noise texture */}
+                <div className="absolute inset-0 opacity-10 mix-blend-overlay noise-overlay" />
 
-        {/* Instagram link */}
-        <div className="mt-10 text-center">
-          <a
-            href="https://www.instagram.com/fia_newengland/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-usa-blue text-white font-semibold rounded-full hover:bg-usa-blue-light transition-colors"
-          >
-            <FaInstagram size={20} />
-            View More on Instagram
-          </a>
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
+
+                {/* Content - visible on hover */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3
+                    className={`${item.size} font-bold font-[family-name:var(--font-playfair)] text-center`}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/70 text-center mt-1">
+                    {item.subtitle}
+                  </p>
+                </div>
+
+                {/* Bottom label - always visible */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent group-hover:opacity-0 transition-opacity duration-300">
+                  <h3 className="text-sm sm:text-base font-bold text-white">
+                    {item.title}
+                  </h3>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>

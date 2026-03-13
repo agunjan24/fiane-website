@@ -12,15 +12,10 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      <div className="section-divider" />
       <About />
-      <div className="section-divider" />
       <Events />
-      <div className="section-divider" />
       <SocialFeed />
-      <div className="section-divider" />
       <Gallery />
-      <div className="section-divider" />
       <Contact />
       <Footer />
     </>
