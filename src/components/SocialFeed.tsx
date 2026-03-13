@@ -1,57 +1,93 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { FaFacebook, FaInstagram, FaTwitter, FaExternalLinkAlt } from "react-icons/fa";
+import { useState } from "react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaExternalLinkAlt,
+  FaPlay,
+} from "react-icons/fa";
 
-declare global {
-  interface Window {
-    twttr?: {
-      widgets: {
-        load: (el?: HTMLElement) => void;
-      };
-    };
-  }
-}
-
-function TwitterTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const loadTwitter = () => {
-      if (window.twttr?.widgets && containerRef.current) {
-        window.twttr.widgets.load(containerRef.current);
-      }
-    };
-
-    // If script is already loaded, just re-render widgets
-    if (window.twttr?.widgets) {
-      loadTwitter();
-      return;
-    }
-
-    // Load the Twitter widgets script
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.onload = loadTwitter;
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup not needed — script stays loaded
-    };
-  }, []);
+function FacebookEmbed() {
+  const [loaded, setLoaded] = useState(false);
 
   return (
-    <div ref={containerRef} className="social-embed flex justify-center">
-      <a
-        className="twitter-timeline"
-        data-height="600"
-        data-theme="light"
-        data-chrome="noheader nofooter"
-        href="https://twitter.com/FIANewEngland"
-      >
-        Loading tweets by @FIANewEngland...
-      </a>
+    <div className="social-embed flex flex-col items-center">
+      {!loaded && (
+        <button
+          onClick={() => setLoaded(true)}
+          className="flex flex-col items-center justify-center w-full h-[500px] bg-white rounded-xl border-2 border-dashed border-blue-200 hover:border-blue-400 transition-colors cursor-pointer group"
+        >
+          <div className="w-16 h-16 rounded-full bg-[#1877F2] flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <FaPlay size={20} className="ml-1" />
+          </div>
+          <span className="text-lg font-semibold text-gray-700">
+            Load Facebook Feed
+          </span>
+          <span className="text-sm text-gray-400 mt-1">
+            Click to load the latest posts from @FIANewEngland
+          </span>
+        </button>
+      )}
+      {loaded && (
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFIANewEngland&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+          width="500"
+          height="600"
+          style={{
+            border: "none",
+            overflow: "hidden",
+            maxWidth: "100%",
+            borderRadius: "12px",
+          }}
+          allowFullScreen
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          title="FIANE Facebook Feed"
+        />
+      )}
+    </div>
+  );
+}
+
+function InstagramEmbed() {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="social-embed flex flex-col items-center">
+      {!loaded && (
+        <button
+          onClick={() => setLoaded(true)}
+          className="flex flex-col items-center justify-center w-full h-[500px] bg-white rounded-xl border-2 border-dashed border-pink-200 hover:border-pink-400 transition-colors cursor-pointer group"
+        >
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+            <FaPlay size={20} className="ml-1" />
+          </div>
+          <span className="text-lg font-semibold text-gray-700">
+            Load Instagram Feed
+          </span>
+          <span className="text-sm text-gray-400 mt-1">
+            Click to load the latest posts from @fia_newengland
+          </span>
+        </button>
+      )}
+      {loaded && (
+        <iframe
+          src="https://www.instagram.com/fia_newengland/embed"
+          width="500"
+          height="600"
+          style={{
+            border: "none",
+            overflow: "hidden",
+            maxWidth: "100%",
+            borderRadius: "12px",
+            background: "#fff",
+          }}
+          allowFullScreen
+          allow="encrypted-media"
+          title="FIANE Instagram Feed"
+        />
+      )}
     </div>
   );
 }
@@ -73,7 +109,8 @@ export default function SocialFeed() {
             <span className="h-1 w-8 rounded-full bg-usa-blue" />
           </div>
           <p className="mt-6 text-lg text-gray-600">
-            Follow us on social media for the latest updates, event photos, and community news.
+            Follow us on social media for the latest updates, event photos, and
+            community news.
           </p>
         </div>
 
@@ -130,48 +167,53 @@ export default function SocialFeed() {
 
         {/* Embedded feeds */}
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Facebook Page Plugin */}
+          {/* Facebook Feed */}
           <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <FaFacebook className="text-[#1877F2]" />
               Facebook Feed
             </h3>
-            <div className="social-embed flex justify-center">
-              <iframe
-                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFIANewEngland&tabs=timeline&width=500&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                width="500"
-                height="600"
-                style={{ border: "none", overflow: "hidden", maxWidth: "100%" }}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                title="FIANE Facebook Feed"
-              />
-            </div>
+            <FacebookEmbed />
           </div>
 
-          {/* Twitter/X Embed */}
+          {/* Instagram Feed */}
           <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <FaTwitter className="text-black" />
-              X (Twitter) Feed
+              <FaInstagram className="text-[#DD2A7B]" />
+              Instagram Feed
             </h3>
-            <TwitterTimeline />
+            <InstagramEmbed />
           </div>
         </div>
 
-        {/* Instagram CTA */}
-        <div className="mt-8 rounded-2xl bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] p-8 text-center text-white">
-          <h3 className="text-2xl font-bold mb-3">Follow us on Instagram</h3>
-          <p className="text-white/90 mb-6 max-w-lg mx-auto">
-            See our latest event photos, community highlights, and behind-the-scenes moments on Instagram.
-          </p>
+        {/* Follow CTA bar */}
+        <div className="mt-8 grid sm:grid-cols-3 gap-4">
+          <a
+            href="https://www.facebook.com/FIANewEngland/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-[#1877F2] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+          >
+            <FaFacebook size={20} />
+            Follow on Facebook
+          </a>
           <a
             href="https://www.instagram.com/fia_newengland/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-white text-gray-900 font-semibold rounded-full hover:bg-cream transition-colors"
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
           >
             <FaInstagram size={20} />
-            @fia_newengland
+            Follow on Instagram
+          </a>
+          <a
+            href="https://x.com/FIANewEngland"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-black text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
+          >
+            <FaTwitter size={20} />
+            Follow on X
           </a>
         </div>
       </div>
