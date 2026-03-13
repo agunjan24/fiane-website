@@ -1,6 +1,60 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaExternalLinkAlt } from "react-icons/fa";
+
+declare global {
+  interface Window {
+    twttr?: {
+      widgets: {
+        load: (el?: HTMLElement) => void;
+      };
+    };
+  }
+}
+
+function TwitterTimeline() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const loadTwitter = () => {
+      if (window.twttr?.widgets && containerRef.current) {
+        window.twttr.widgets.load(containerRef.current);
+      }
+    };
+
+    // If script is already loaded, just re-render widgets
+    if (window.twttr?.widgets) {
+      loadTwitter();
+      return;
+    }
+
+    // Load the Twitter widgets script
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+    script.onload = loadTwitter;
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup not needed — script stays loaded
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className="social-embed flex justify-center">
+      <a
+        className="twitter-timeline"
+        data-height="600"
+        data-theme="light"
+        data-chrome="noheader nofooter"
+        href="https://twitter.com/FIANewEngland"
+      >
+        Loading tweets by @FIANewEngland...
+      </a>
+    </div>
+  );
+}
 
 export default function SocialFeed() {
   return (
@@ -100,16 +154,7 @@ export default function SocialFeed() {
               <FaTwitter className="text-black" />
               X (Twitter) Feed
             </h3>
-            <div className="social-embed flex justify-center">
-              <a
-                className="twitter-timeline"
-                data-height="600"
-                data-theme="light"
-                href="https://twitter.com/FIANewEngland"
-              >
-                Loading tweets by @FIANewEngland...
-              </a>
-            </div>
+            <TwitterTimeline />
           </div>
         </div>
 
