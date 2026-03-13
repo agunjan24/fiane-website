@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-saffron: #FF9933;
+  --color-saffron-dark: #E8871D;
+  --color-india-green: #138808;
+  --color-india-green-dark: #0F6B06;
+  --color-india-navy: #000080;
+  --color-usa-red: #B22234;
+  --color-usa-blue: #3C3B6E;
+  --color-usa-blue-light: #4A49A0;
+  --color-gold: #D4A843;
+  --color-cream: #FFF8F0;
+  --color-warm-white: #FFFDF9;
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #1a1a2e;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Gradient divider between sections */
+.section-divider {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    #FF9933 0%,
+    #FF9933 33%,
+    #FFFFFF 33%,
+    #FFFFFF 50%,
+    #138808 50%,
+    #138808 66%,
+    #B22234 66%,
+    #B22234 100%
+  );
+}
+
+/* Tricolor top bar */
+.tricolor-bar {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    #FF9933 0%,
+    #FF9933 25%,
+    #FFFFFF 25%,
+    #FFFFFF 50%,
+    #138808 50%,
+    #138808 75%,
+    #3C3B6E 75%,
+    #3C3B6E 100%
+  );
+}
+
+/* Animated gradient for hero */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #1a1a2e 0%, #3C3B6E 30%, #000080 60%, #1a1a2e 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Social embed responsive */
+.social-embed iframe {
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+/* Chakra spin animation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Fade in animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
 }
