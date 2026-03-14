@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import SocialCarousel from "@/components/SocialCarousel";
 import About from "@/components/About";
 import Events from "@/components/Events";
 import SocialFeed from "@/components/SocialFeed";
@@ -12,6 +13,7 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <SocialCarousel />
       <About />
       <Events />
       <SocialFeed />
