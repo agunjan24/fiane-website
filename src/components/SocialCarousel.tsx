@@ -32,9 +32,11 @@ function timeAgo(dateStr: string): string {
 function PostCard({
   post,
   isActive,
+  timeLabel,
 }: {
   post: SocialPost;
   isActive: boolean;
+  timeLabel: string;
 }) {
   const isFacebook = post.platform === "facebook";
 
@@ -73,8 +75,8 @@ function PostCard({
                 <div className="text-sm font-semibold text-white">
                   {isFacebook ? "FIA New England" : "fia_newengland"}
                 </div>
-                <div className="text-xs text-white/40">
-                  {timeAgo(post.timestamp)}
+                <div className="text-xs text-white/40 min-h-[1rem]">
+                  {timeLabel}
                 </div>
               </div>
             </div>
@@ -113,6 +115,14 @@ export default function SocialCarousel() {
   const [posts, setPosts] = useState<SocialPost[]>(mockSocialPosts);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  // Relative timestamps depend on "now", which differs between server render and
+  // client hydration — defer them to after mount to avoid a hydration mismatch.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   // Fetch live posts from API
   useEffect(() => {
@@ -224,7 +234,12 @@ export default function SocialCarousel() {
             onMouseLeave={() => setIsPaused(false)}
           >
             {posts.map((post, i) => (
-              <PostCard key={post.id} post={post} isActive={i === activeIndex} />
+              <PostCard
+                key={post.id}
+                post={post}
+                isActive={i === activeIndex}
+                timeLabel={mounted ? timeAgo(post.timestamp) : ""}
+              />
             ))}
 
             {/* Auto-advance progress bar */}

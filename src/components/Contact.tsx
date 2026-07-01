@@ -7,6 +7,15 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import ScrollReveal from "./ScrollReveal";
+import { DONATE_URL, donateIsExternal, CONTACT_EMAIL } from "@/lib/links";
+
+// Prefer a real donation page when configured; otherwise open a donation inquiry email.
+const donateHref = donateIsExternal
+  ? DONATE_URL
+  : `mailto:${CONTACT_EMAIL}?subject=Donation Inquiry`;
+const donateLinkProps = donateIsExternal
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {};
 
 export default function Contact() {
   return (
@@ -41,7 +50,8 @@ export default function Contact() {
                     across New England.
                   </p>
                   <a
-                    href="mailto:president@fianewengland.org?subject=Donation Inquiry"
+                    href={donateHref}
+                    {...donateLinkProps}
                     className="inline-flex items-center gap-2 px-7 py-3 bg-white text-saffron-dark font-bold rounded-full hover:bg-cream transition-all hover:shadow-lg text-sm"
                   >
                     <FaHeart className="text-xs" />
@@ -55,7 +65,7 @@ export default function Contact() {
             <ScrollReveal delay={100}>
               <div className="space-y-3">
                 <a
-                  href="mailto:president@fianewengland.org"
+                  href="mailto:info@fiane.org"
                   className="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-100 hover:border-saffron/30 hover:shadow-md transition-all duration-300"
                 >
                   <div className="w-11 h-11 rounded-xl bg-usa-blue/8 flex items-center justify-center text-usa-blue">
@@ -66,7 +76,7 @@ export default function Contact() {
                       Email
                     </div>
                     <div className="font-semibold text-gray-900 text-sm">
-                      president@fianewengland.org
+                      info@fiane.org
                     </div>
                   </div>
                 </a>
@@ -124,7 +134,7 @@ export default function Contact() {
                   const message = (
                     form.elements.namedItem("message") as HTMLTextAreaElement
                   ).value;
-                  window.location.href = `mailto:president@fianewengland.org?subject=Website Contact from ${name}&body=${encodeURIComponent(message)}%0A%0AFrom: ${name} (${email})`;
+                  window.location.href = `mailto:info@fiane.org?subject=Website Contact from ${name}&body=${encodeURIComponent(message)}%0A%0AFrom: ${name} (${email})`;
                 }}
                 className="space-y-5"
               >

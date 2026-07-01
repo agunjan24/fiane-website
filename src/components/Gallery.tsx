@@ -1,74 +1,87 @@
 "use client";
 
-import { FaInstagram } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { FaInstagram, FaFacebook } from "react-icons/fa";
+import { type SocialPost } from "@/data/social";
+import { gallerySeed } from "@/data/gallerySeed";
 import ScrollReveal from "./ScrollReveal";
 
-const galleryItems = [
-  {
-    title: "India Day Parade",
-    subtitle: "Boston Harbor, 2025",
-    gradient: "from-saffron via-saffron-dark to-usa-red",
-    span: "md:col-span-2 md:row-span-2",
-    aspect: "aspect-square",
-    size: "text-2xl sm:text-3xl",
-  },
-  {
-    title: "Women's Day",
-    subtitle: "JFK Library, 2025",
-    gradient: "from-purple-600 via-pink-500 to-rose-400",
-    span: "",
-    aspect: "aspect-square",
-    size: "text-lg",
-  },
-  {
-    title: "Health Camp",
-    subtitle: "MLK Day, Burlington",
-    gradient: "from-usa-blue via-usa-blue-light to-india-navy",
-    span: "",
-    aspect: "aspect-square",
-    size: "text-lg",
-  },
-  {
-    title: "Republic Day",
-    subtitle: "Cultural Performances",
-    gradient: "from-saffron to-amber-400",
-    span: "md:col-span-2",
-    aspect: "aspect-[2/1]",
-    size: "text-xl",
-  },
-  {
-    title: "Diwali",
-    subtitle: "Festival of Lights",
-    gradient: "from-amber-600 via-orange-500 to-saffron",
-    span: "",
-    aspect: "aspect-square",
-    size: "text-lg",
-  },
-  {
-    title: "Community Service",
-    subtitle: "Food Pantry Drive",
-    gradient: "from-india-green via-emerald-500 to-teal-400",
-    span: "",
-    aspect: "aspect-square",
-    size: "text-lg",
-  },
+// Bento layout slots — the first tile is large, the rest fill around it.
+// Applied in order to whatever photos come back from the social feed.
+const layout = [
+  { span: "md:col-span-2 md:row-span-2", aspect: "aspect-square" },
+  { span: "", aspect: "aspect-square" },
+  { span: "", aspect: "aspect-square" },
+  { span: "md:col-span-2", aspect: "aspect-[2/1]" },
+  { span: "", aspect: "aspect-square" },
+  { span: "", aspect: "aspect-square" },
 ];
 
+// Shown only when no live photos are available (no token / mock data), so the
+// section still looks intentional rather than empty.
+const fallbackTiles = [
+  { title: "India Day Parade", gradient: "from-saffron via-saffron-dark to-usa-red", span: "md:col-span-2 md:row-span-2", aspect: "aspect-square" },
+  { title: "Women's Day", gradient: "from-usa-red via-rose-500 to-usa-blue", span: "", aspect: "aspect-square" },
+  { title: "Health Camp", gradient: "from-usa-blue via-usa-blue-light to-india-navy", span: "", aspect: "aspect-square" },
+  { title: "Republic Day", gradient: "from-india-green via-saffron to-usa-red", span: "md:col-span-2", aspect: "aspect-[2/1]" },
+  { title: "Diwali", gradient: "from-saffron via-gold to-usa-red", span: "", aspect: "aspect-square" },
+  { title: "Community Service", gradient: "from-india-green via-emerald-500 to-usa-blue", span: "", aspect: "aspect-square" },
+];
+
+function truncate(text: string, max = 90): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  return clean.length > max ? `${clean.slice(0, max).trimEnd()}…` : clean;
+}
+
 export default function Gallery() {
+  // Default to the seed photos (real images bundled in /public) so authentic
+  // content shows immediately — even with no token and before the fetch runs.
+  const [photos, setPhotos] = useState<SocialPost[]>(() =>
+    gallerySeed.slice(0, layout.length)
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/social")
+      .then((res) => res.json())
+      .then((data: { posts?: SocialPost[]; source?: string }) => {
+        if (cancelled) return;
+        // Only replace the seed when the API returns LIVE photos with images.
+        if (data.source !== "live") return;
+        const withImages = (data.posts || [])
+          .filter((p) => p.imageUrl)
+          .slice(0, layout.length);
+        if (withImages.length > 0) setPhotos(withImages);
+      })
+      .catch(() => {
+        // Keep the seed photos on error.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const hasPhotos = photos.length > 0;
+
   return (
     <section id="gallery" className="py-28 bg-cream relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-india-green/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-[100px]" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-usa-blue/5 rounded-full -translate-y-1/2 translate-x-1/4 blur-[100px]" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <ScrollReveal>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
             <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-saffron">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-usa-red">
                 Our Moments
               </span>
               <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] text-gray-900 leading-tight">
-                Event <span className="italic text-usa-blue">Gallery</span>
+                Event <span className="italic text-india-green">Gallery</span>
               </h2>
+              <p className="mt-3 text-gray-500 max-w-md">
+                Straight from our social feeds — updated automatically as we post.
+              </p>
             </div>
             <a
               href="https://www.instagram.com/fia_newengland/"
@@ -82,45 +95,70 @@ export default function Gallery() {
           </div>
         </ScrollReveal>
 
-        {/* Masonry-style grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          {galleryItems.map((item, index) => (
-            <ScrollReveal
-              key={index}
-              delay={index * 80}
-              animation="reveal-scale"
-              className={item.span}
-            >
-              <div
-                className={`group relative ${item.aspect} rounded-2xl bg-gradient-to-br ${item.gradient} overflow-hidden cursor-pointer w-full h-full`}
-              >
-                {/* Noise texture */}
-                <div className="absolute inset-0 opacity-10 mix-blend-overlay noise-overlay" />
-
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
-
-                {/* Content - visible on hover */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h3
-                    className={`${item.size} font-bold font-[family-name:var(--font-playfair)] text-center`}
+          {hasPhotos
+            ? photos.map((post, index) => {
+                const slot = layout[index] ?? layout[0];
+                return (
+                  <ScrollReveal
+                    key={post.id}
+                    delay={index * 80}
+                    animation="reveal-scale"
+                    className={slot.span}
                   >
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-white/70 text-center mt-1">
-                    {item.subtitle}
-                  </p>
-                </div>
-
-                {/* Bottom label - always visible */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent group-hover:opacity-0 transition-opacity duration-300">
-                  <h3 className="text-sm sm:text-base font-bold text-white">
-                    {item.title}
-                  </h3>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
+                    <a
+                      href={post.permalink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group relative block ${slot.aspect} rounded-2xl overflow-hidden cursor-pointer w-full h-full bg-gray-200`}
+                    >
+                      <Image
+                        src={post.imageUrl as string}
+                        alt={post.text ? truncate(post.text, 60) : "FIANE event photo"}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {/* Platform badge */}
+                      <div className="absolute top-3 left-3 w-7 h-7 rounded-lg bg-black/40 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                        {post.platform === "facebook" ? (
+                          <FaFacebook size={13} />
+                        ) : (
+                          <FaInstagram size={13} />
+                        )}
+                      </div>
+                      {/* Caption overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      {post.text && (
+                        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <p className="text-sm text-white leading-snug">
+                            {truncate(post.text)}
+                          </p>
+                        </div>
+                      )}
+                    </a>
+                  </ScrollReveal>
+                );
+              })
+            : fallbackTiles.map((item, index) => (
+                <ScrollReveal
+                  key={item.title}
+                  delay={index * 80}
+                  animation="reveal-scale"
+                  className={item.span}
+                >
+                  <div
+                    className={`group relative ${item.aspect} rounded-2xl bg-gradient-to-br ${item.gradient} overflow-hidden w-full h-full`}
+                  >
+                    <div className="absolute inset-0 opacity-10 mix-blend-overlay noise-overlay" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
+                      <h3 className="text-sm sm:text-base font-bold text-white">
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
         </div>
       </div>
     </section>

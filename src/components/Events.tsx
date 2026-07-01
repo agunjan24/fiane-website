@@ -8,6 +8,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { events } from "@/data/events";
+import { registrationHref, registrationIsExternal } from "@/lib/links";
 import ScrollReveal from "./ScrollReveal";
 
 export default function Events() {
@@ -24,7 +25,7 @@ export default function Events() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <ScrollReveal>
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-saffron">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-usa-blue">
             Get Involved
           </span>
           <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] text-gray-900 leading-tight">
@@ -92,9 +93,12 @@ export default function Events() {
                     </div>
                   </div>
 
-                  {event.registrationUrl && !event.isPast && (
+                  {!event.isPast && (
                     <a
-                      href={event.registrationUrl}
+                      href={registrationHref(event)}
+                      {...(registrationIsExternal(event)
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                       className="inline-flex items-center gap-2 text-sm font-bold text-usa-blue hover:text-saffron transition-colors"
                     >
                       Register Now
