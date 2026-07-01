@@ -99,11 +99,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:president@fianewengland.org"
+                  href="mailto:info@fiane.org"
                   className="flex items-center gap-2.5 text-sm text-gray-500 hover:text-saffron transition-colors"
                 >
                   <FaEnvelope className="text-xs flex-shrink-0" />
-                  president@fianewengland.org
+                  info@fiane.org
                 </a>
               </li>
               <li>

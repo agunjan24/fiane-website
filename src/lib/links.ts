@@ -1,6 +1,6 @@
 import type { Event } from "@/data/events";
 
-export const CONTACT_EMAIL = "president@fianewengland.org";
+export const CONTACT_EMAIL = "info@fiane.org";
 
 /**
  * Where the "Donate" buttons point.

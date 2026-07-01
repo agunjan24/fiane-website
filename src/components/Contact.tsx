@@ -65,7 +65,7 @@ export default function Contact() {
             <ScrollReveal delay={100}>
               <div className="space-y-3">
                 <a
-                  href="mailto:president@fianewengland.org"
+                  href="mailto:info@fiane.org"
                   className="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-100 hover:border-saffron/30 hover:shadow-md transition-all duration-300"
                 >
                   <div className="w-11 h-11 rounded-xl bg-usa-blue/8 flex items-center justify-center text-usa-blue">
@@ -76,7 +76,7 @@ export default function Contact() {
                       Email
                     </div>
                     <div className="font-semibold text-gray-900 text-sm">
-                      president@fianewengland.org
+                      info@fiane.org
                     </div>
                   </div>
                 </a>
@@ -134,7 +134,7 @@ export default function Contact() {
                   const message = (
                     form.elements.namedItem("message") as HTMLTextAreaElement
                   ).value;
-                  window.location.href = `mailto:president@fianewengland.org?subject=Website Contact from ${name}&body=${encodeURIComponent(message)}%0A%0AFrom: ${name} (${email})`;
+                  window.location.href = `mailto:info@fiane.org?subject=Website Contact from ${name}&body=${encodeURIComponent(message)}%0A%0AFrom: ${name} (${email})`;
                 }}
                 className="space-y-5"
               >
