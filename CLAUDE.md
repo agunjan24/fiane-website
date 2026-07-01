@@ -32,12 +32,14 @@ There is no test suite.
 ## Architecture
 
 The site is a single page (`src/app/page.tsx`) that stacks section components in fixed order:
-Navbar → Hero → SocialCarousel → About → Events → SocialFeed → Gallery → Contact → Footer.
-Each lives in `src/components/` as a self-contained section.
+Navbar → Hero → HeroCarousel → SocialCarousel → About → Events → SocialFeed → Gallery → Contact →
+Footer. Each lives in `src/components/` as a self-contained section.
 
 **Content vs. presentation.** Editable content is separated into typed modules under `src/data/`
-(`events.ts`, `social.ts`, `team.ts`) — each exports a TypeScript `interface` plus a typed array.
-To change events, posts, or team info, edit these files rather than the components.
+(`events.ts`, `social.ts`, `team.ts`, `gallerySeed.ts`) — each exports a TypeScript `interface`
+plus a typed array. To change events, posts, or seed photos, edit these files rather than the
+components. `Events` shows upcoming + recent events merged into one list sorted by date descending
+(reverse chronological); it's a server component (no toggle/state).
 
 **Social feed data flow.** `src/lib/social.ts` holds the shared fetch logic (`getSocialPosts()`):
 it pulls the latest Facebook + Instagram posts via the Graph API and falls back to `mockSocialPosts`
@@ -51,11 +53,13 @@ from `src/data/social.ts` when credentials are absent or the API fails, tagging 
   credentials are set but no live data comes back (expired token). Point an uptime monitor at it.
 - `SocialCarousel` (client) fetches `/api/social` on mount, keeps mock data on error, and defers
   relative timestamps behind a `requestAnimationFrame` mount flag to avoid hydration mismatch.
-- `Gallery` (client) shows a bento photo grid via `next/image`. Priority order: **live** API
-  photos (when a token is set) → **seed** photos from `src/data/gallerySeed.ts` (real images
-  bundled in `public/images/gallery/`, the default so authentic content shows with no credentials)
-  → branded gradient tiles as a last resort. FB/IG CDN hosts are allowlisted in `next.config.ts`
-  for the live case. To refresh the demo seed, drop images in that folder and update the list.
+- `Gallery` and `HeroCarousel` (both client) share the `useSocialPhotos(limit)` hook
+  (`src/hooks/`), which defaults to the **seed** photos from `src/data/gallerySeed.ts` (real images
+  in `public/images/gallery/`, so authentic content shows with no credentials) and upgrades to
+  **live** API photos when `/api/social` reports `source: "live"`. `Gallery` renders a bento grid;
+  `HeroCarousel` is the rotating photo band below the hero (auto-advance ~5s, pause on hover).
+  FB/IG CDN hosts are allowlisted in `next.config.ts` for the live case. To refresh the demo seed,
+  drop images in that folder and update the list.
 - `SocialFeed` uses direct Facebook/Instagram iframe embeds instead (independent of the API).
 
 **Client vs. server components.** Components are server components by default. Any with
