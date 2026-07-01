@@ -7,6 +7,15 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import ScrollReveal from "./ScrollReveal";
+import { DONATE_URL, donateIsExternal, CONTACT_EMAIL } from "@/lib/links";
+
+// Prefer a real donation page when configured; otherwise open a donation inquiry email.
+const donateHref = donateIsExternal
+  ? DONATE_URL
+  : `mailto:${CONTACT_EMAIL}?subject=Donation Inquiry`;
+const donateLinkProps = donateIsExternal
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {};
 
 export default function Contact() {
   return (
@@ -41,7 +50,8 @@ export default function Contact() {
                     across New England.
                   </p>
                   <a
-                    href="mailto:president@fianewengland.org?subject=Donation Inquiry"
+                    href={donateHref}
+                    {...donateLinkProps}
                     className="inline-flex items-center gap-2 px-7 py-3 bg-white text-saffron-dark font-bold rounded-full hover:bg-cream transition-all hover:shadow-lg text-sm"
                   >
                     <FaHeart className="text-xs" />

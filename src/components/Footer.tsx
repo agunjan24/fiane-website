@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   FaFacebook,
   FaInstagram,
@@ -6,6 +5,7 @@ import {
   FaEnvelope,
   FaPhone,
 } from "react-icons/fa";
+import Logo from "./Logo";
 
 const socialLinks = [
   {
@@ -47,13 +47,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
-              <Image
-                src="/images/logo.png"
-                alt="FIANE Logo"
-                width={40}
-                height={40}
-                className="rounded-full ring-2 ring-white/10"
-              />
+              <Logo size={40} />
               <span className="text-xl font-bold font-[family-name:var(--font-playfair)]">
                 FIANE
               </span>

@@ -1,8 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { FaBars, FaTimes } from "react-icons/fa";
+import Logo from "./Logo";
+import { DONATE_URL, donateIsExternal } from "@/lib/links";
+
+const donateProps = donateIsExternal
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {};
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -36,13 +41,7 @@ export default function Navbar() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <a href="#home" className="flex items-center gap-3">
-              <Image
-                src="/images/logo.png"
-                alt="FIANE Logo"
-                width={44}
-                height={44}
-                className="rounded-full ring-2 ring-white/20"
-              />
+              <Logo size={44} className="drop-shadow-sm" />
               <div className="hidden sm:block">
                 <span
                   className={`text-lg font-bold font-[family-name:var(--font-playfair)] transition-colors ${
@@ -77,7 +76,8 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href={DONATE_URL}
+                {...donateProps}
                 className="ml-3 px-5 py-2 text-sm font-semibold text-white bg-saffron rounded-full hover:bg-saffron-dark transition-all hover:shadow-lg hover:shadow-saffron/25"
               >
                 Donate
@@ -112,7 +112,8 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href={DONATE_URL}
+                {...donateProps}
                 onClick={() => setIsOpen(false)}
                 className="block mt-3 px-5 py-2.5 text-center text-sm font-semibold text-white bg-saffron rounded-full hover:bg-saffron-dark"
               >
