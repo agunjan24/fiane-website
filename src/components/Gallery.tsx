@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import { type SocialPost } from "@/data/social";
+import { gallerySeed } from "@/data/gallerySeed";
 import ScrollReveal from "./ScrollReveal";
 
 // Bento layout slots — the first tile is large, the rest fill around it.
@@ -34,28 +35,34 @@ function truncate(text: string, max = 90): string {
 }
 
 export default function Gallery() {
-  const [photos, setPhotos] = useState<SocialPost[] | null>(null);
+  // Default to the seed photos (real images bundled in /public) so authentic
+  // content shows immediately — even with no token and before the fetch runs.
+  const [photos, setPhotos] = useState<SocialPost[]>(() =>
+    gallerySeed.slice(0, layout.length)
+  );
 
   useEffect(() => {
     let cancelled = false;
     fetch("/api/social")
       .then((res) => res.json())
-      .then((data: { posts?: SocialPost[] }) => {
+      .then((data: { posts?: SocialPost[]; source?: string }) => {
         if (cancelled) return;
+        // Only replace the seed when the API returns LIVE photos with images.
+        if (data.source !== "live") return;
         const withImages = (data.posts || [])
           .filter((p) => p.imageUrl)
           .slice(0, layout.length);
-        setPhotos(withImages);
+        if (withImages.length > 0) setPhotos(withImages);
       })
       .catch(() => {
-        if (!cancelled) setPhotos([]);
+        // Keep the seed photos on error.
       });
     return () => {
       cancelled = true;
     };
   }, []);
 
-  const hasPhotos = photos !== null && photos.length > 0;
+  const hasPhotos = photos.length > 0;
 
   return (
     <section id="gallery" className="py-28 bg-cream relative overflow-hidden">
@@ -90,7 +97,7 @@ export default function Gallery() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {hasPhotos
-            ? photos!.map((post, index) => {
+            ? photos.map((post, index) => {
                 const slot = layout[index] ?? layout[0];
                 return (
                   <ScrollReveal

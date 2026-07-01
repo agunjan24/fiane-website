@@ -51,9 +51,11 @@ from `src/data/social.ts` when credentials are absent or the API fails, tagging 
   credentials are set but no live data comes back (expired token). Point an uptime monitor at it.
 - `SocialCarousel` (client) fetches `/api/social` on mount, keeps mock data on error, and defers
   relative timestamps behind a `requestAnimationFrame` mount flag to avoid hydration mismatch.
-- `Gallery` (client) fetches `/api/social`, renders posts that have `imageUrl` as a bento photo
-  grid via `next/image` (FB/IG CDN hosts are allowlisted in `next.config.ts`), and falls back to
-  branded gradient tiles when no live photos are available.
+- `Gallery` (client) shows a bento photo grid via `next/image`. Priority order: **live** API
+  photos (when a token is set) → **seed** photos from `src/data/gallerySeed.ts` (real images
+  bundled in `public/images/gallery/`, the default so authentic content shows with no credentials)
+  → branded gradient tiles as a last resort. FB/IG CDN hosts are allowlisted in `next.config.ts`
+  for the live case. To refresh the demo seed, drop images in that folder and update the list.
 - `SocialFeed` uses direct Facebook/Instagram iframe embeds instead (independent of the API).
 
 **Client vs. server components.** Components are server components by default. Any with
