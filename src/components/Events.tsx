@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import {
   FaCalendarAlt,
   FaClock,
@@ -12,11 +9,10 @@ import { registrationHref, registrationIsExternal } from "@/lib/links";
 import ScrollReveal from "./ScrollReveal";
 
 export default function Events() {
-  const [showPast, setShowPast] = useState(false);
-
-  const upcomingEvents = events.filter((e) => !e.isPast);
-  const pastEvents = events.filter((e) => e.isPast);
-  const displayedEvents = showPast ? pastEvents : upcomingEvents;
+  // Show upcoming and recent events together, newest first (reverse chronological).
+  const displayedEvents = [...events].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   return (
     <section id="events" className="py-28 bg-cream relative overflow-hidden">
@@ -29,38 +25,17 @@ export default function Events() {
             Get Involved
           </span>
           <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] text-gray-900 leading-tight">
-            Upcoming <span className="italic text-usa-blue">Events</span>
+            Upcoming &amp; Recent{" "}
+            <span className="italic text-usa-blue">Events</span>
           </h2>
-        </ScrollReveal>
-
-        {/* Toggle */}
-        <ScrollReveal delay={100} className="mt-8 mb-10">
-          <div className="inline-flex bg-white rounded-full p-1 shadow-sm border border-gray-100">
-            <button
-              onClick={() => setShowPast(false)}
-              className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 ${
-                !showPast
-                  ? "bg-usa-blue text-white shadow-md"
-                  : "text-gray-500 hover:text-gray-900"
-              }`}
-            >
-              Upcoming ({upcomingEvents.length})
-            </button>
-            <button
-              onClick={() => setShowPast(true)}
-              className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 ${
-                showPast
-                  ? "bg-usa-blue text-white shadow-md"
-                  : "text-gray-500 hover:text-gray-900"
-              }`}
-            >
-              Past ({pastEvents.length})
-            </button>
-          </div>
+          <p className="mt-4 text-gray-500 max-w-xl">
+            What&apos;s coming up next and what we&apos;ve recently celebrated —
+            newest first.
+          </p>
         </ScrollReveal>
 
         {/* Events grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {displayedEvents.map((event, i) => (
             <ScrollReveal key={event.id} delay={i * 100}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 h-full">

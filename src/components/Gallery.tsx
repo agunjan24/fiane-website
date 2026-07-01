@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
-import { type SocialPost } from "@/data/social";
-import { gallerySeed } from "@/data/gallerySeed";
+import { useSocialPhotos } from "@/hooks/useSocialPhotos";
 import ScrollReveal from "./ScrollReveal";
 
 // Bento layout slots — the first tile is large, the rest fill around it.
@@ -35,33 +33,7 @@ function truncate(text: string, max = 90): string {
 }
 
 export default function Gallery() {
-  // Default to the seed photos (real images bundled in /public) so authentic
-  // content shows immediately — even with no token and before the fetch runs.
-  const [photos, setPhotos] = useState<SocialPost[]>(() =>
-    gallerySeed.slice(0, layout.length)
-  );
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/social")
-      .then((res) => res.json())
-      .then((data: { posts?: SocialPost[]; source?: string }) => {
-        if (cancelled) return;
-        // Only replace the seed when the API returns LIVE photos with images.
-        if (data.source !== "live") return;
-        const withImages = (data.posts || [])
-          .filter((p) => p.imageUrl)
-          .slice(0, layout.length);
-        if (withImages.length > 0) setPhotos(withImages);
-      })
-      .catch(() => {
-        // Keep the seed photos on error.
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+  const photos = useSocialPhotos(layout.length);
   const hasPhotos = photos.length > 0;
 
   return (
