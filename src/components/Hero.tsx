@@ -35,7 +35,7 @@ export default function Hero() {
       </div>
 
       {/* Star canton (USA) — balances the Ashoka chakra (India) on the right */}
-      <div className="absolute -top-4 -left-8 sm:left-0 w-[320px] sm:w-[420px] opacity-[0.16] pointer-events-none">
+      <div className="absolute -top-4 -left-8 sm:left-0 w-[320px] sm:w-[420px] opacity-[0.25] pointer-events-none">
         <StarField className="w-full h-auto" />
       </div>
 

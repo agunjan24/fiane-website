@@ -14,23 +14,34 @@ function starPoints(cx: number, cy: number, r: number, innerR: number): string {
   return pts.join(" ");
 }
 
+// Star colors — mostly white with a scattered few in patriotic red/blue
+// (brightened from the brand tokens so they read on the dark hero).
+const WHITE = "#FFFFFF";
+const RED = "#D23B52";
+const BLUE = "#6E6DE0";
+
 export default function StarField({ className = "" }: { className?: string }) {
   const spacingX = 30;
   const spacingY = 26;
   const rows = 6;
   const margin = 16;
 
-  const stars: { x: number; y: number; delay: number }[] = [];
+  const stars: { x: number; y: number; delay: number; color: string }[] = [];
+  let idx = 0;
   for (let r = 0; r < rows; r++) {
     const oddRow = r % 2 === 1;
     const cols = oddRow ? 5 : 6;
     const offset = oddRow ? spacingX / 2 : 0;
     for (let c = 0; c < cols; c++) {
+      // Scatter red/blue accents without clustering them.
+      const color = idx % 7 === 2 ? RED : idx % 7 === 5 ? BLUE : WHITE;
       stars.push({
         x: margin + offset + c * spacingX,
         y: margin + r * spacingY,
         delay: (r + c) * 0.18,
+        color,
       });
+      idx++;
     }
   }
 
@@ -48,7 +59,7 @@ export default function StarField({ className = "" }: { className?: string }) {
         <polygon
           key={i}
           points={starPoints(s.x, s.y, 7, 2.9)}
-          fill="white"
+          fill={s.color}
           className="star-twinkle"
           style={{ animationDelay: `${s.delay}s` }}
         />
