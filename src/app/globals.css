@@ -124,6 +124,18 @@ body {
 .delay-500 { animation-delay: 500ms; }
 .delay-600 { animation-delay: 600ms; }
 
+/* Star-spangled twinkle */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.star-twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 /* Chakra spin */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }

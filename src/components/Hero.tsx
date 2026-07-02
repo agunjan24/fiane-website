@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
+import StarField from "./StarField";
 
 export default function Hero() {
   return (
@@ -31,6 +32,11 @@ export default function Hero() {
           ))}
           <circle cx="100" cy="100" r="12" fill="none" stroke="white" strokeWidth="2" />
         </svg>
+      </div>
+
+      {/* Star canton (USA) — balances the Ashoka chakra (India) on the right */}
+      <div className="absolute -top-4 -left-8 sm:left-0 w-[320px] sm:w-[420px] opacity-[0.25] pointer-events-none">
+        <StarField className="w-full h-auto" />
       </div>
 
       {/* Floating accent blobs */}
