@@ -11,6 +11,7 @@ const donateProps = donateIsExternal
 
 const navLinks = [
   { href: "#home", label: "Home" },
+  { href: "#freedom250", label: "America 250" },
   { href: "#about", label: "About" },
   { href: "#events", label: "Events" },
   { href: "#social", label: "Social" },
