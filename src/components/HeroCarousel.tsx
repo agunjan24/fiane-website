@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import Image from "next/image";
 import {
   FaFacebook,
@@ -14,10 +14,13 @@ import ScrollReveal from "./ScrollReveal";
 
 const ROTATE_MS = 5000;
 
+const SWIPE_THRESHOLD_PX = 50;
+
 export default function HeroCarousel() {
-  const photos = useSocialPhotos(6);
+  const photos = useSocialPhotos(7);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   const count = photos.length;
 
@@ -36,6 +39,22 @@ export default function HeroCarousel() {
     const id = setInterval(next, ROTATE_MS);
     return () => clearInterval(id);
   }, [next, paused, count]);
+
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+    setPaused(true);
+  };
+
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    const startX = touchStartX.current;
+    touchStartX.current = null;
+    setPaused(false);
+    if (startX === null) return;
+
+    const deltaX = e.changedTouches[0].clientX - startX;
+    if (deltaX > SWIPE_THRESHOLD_PX) prev();
+    else if (deltaX < -SWIPE_THRESHOLD_PX) next();
+  };
 
   if (count === 0) return null;
 
@@ -82,9 +101,11 @@ export default function HeroCarousel() {
           className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/10 bg-gray-200 aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
         >
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 touch-pan-y"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {photos.map((post, i) => (
               <a

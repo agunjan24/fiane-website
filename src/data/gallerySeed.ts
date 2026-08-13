@@ -81,4 +81,14 @@ export const gallerySeed: SocialPost[] = [
     likes: 0,
     comments: 0,
   },
+  {
+    id: "seed-india-day-police",
+    platform: "facebook",
+    text: "Thanking the Boston Police officers who helped make the 5th International India Day Parade possible.",
+    imageUrl: "/images/gallery/india-day-boston-police.jpg",
+    permalink: "https://www.facebook.com/FIANewEngland/",
+    timestamp: "2026-08-09T19:00:00Z",
+    likes: 0,
+    comments: 0,
+  },
 ];
