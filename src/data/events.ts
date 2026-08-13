@@ -42,10 +42,9 @@ export const events: Event[] = [
     time: "10:00 AM - 5:00 PM",
     location: "Boston Harbor, Christopher Columbus Waterfront Park",
     description:
-      "Celebrate India's 80th Independence Day with our grand parade featuring cultural performances, floats, food stalls, and community pride.",
+      "Celebrated India's 80th Independence Day with our grand parade featuring cultural performances, floats, food stalls, and community pride.",
     image: "/images/parade.svg",
-    isPast: false,
-    registrationUrl: "#",
+    isPast: true,
   },
   {
     id: "4",

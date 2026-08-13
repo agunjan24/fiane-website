@@ -12,6 +12,16 @@ import { type SocialPost } from "./social";
  */
 export const gallerySeed: SocialPost[] = [
   {
+    id: "seed-india-day-parade",
+    platform: "facebook",
+    text: "The 5th International India Day Parade at Boston Harbor — floats, bands, and a ribbon-cutting with the Consul General of India in Boston.",
+    imageUrl: "/images/gallery/india-day-welcome-banner.jpg",
+    permalink: "https://www.facebook.com/FIANewEngland/",
+    timestamp: "2026-08-09T18:00:00Z",
+    likes: 0,
+    comments: 0,
+  },
+  {
     id: "seed-celebration",
     platform: "instagram",
     text: "Honoring our community at FIANE's celebration of America's 250th — flags, awards, and pride.",
