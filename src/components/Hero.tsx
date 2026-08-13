@@ -66,12 +66,11 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-            Bridging{" "}
-            <span className="text-saffron italic">Heritage</span>
+          <h1 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-7xl font-bold text-white leading-[1.15] sm:leading-[1.1] tracking-tight">
+            Bridging <span className="text-saffron italic">Heritage</span>{" "}
+            <span className="text-white/40">&</span>
             <br />
-            <span className="text-white/40">&</span> Building{" "}
-            <span className="text-india-green italic">Community</span>
+            Building <span className="text-india-green italic">Community</span>
           </h1>
 
           <p className="mt-8 text-lg sm:text-xl text-white/60 max-w-xl leading-relaxed">
@@ -85,7 +84,7 @@ export default function Hero() {
               href="#events"
               className="group inline-flex items-center gap-2 px-8 py-3.5 text-base font-semibold text-deep bg-white rounded-full hover:bg-saffron hover:text-white transition-all duration-300 shadow-lg shadow-black/20"
             >
-              Upcoming Events
+              See Our Events
               <FaArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
             </a>
             <a
@@ -97,9 +96,9 @@ export default function Hero() {
           </div>
 
           {/* Stats */}
-          <div className="mt-20 flex gap-12 max-w-md">
+          <div className="mt-20 flex gap-6 sm:gap-10 lg:gap-12 max-w-md">
             <div>
-              <div className="text-3xl font-bold font-[family-name:var(--font-playfair)] text-saffron">
+              <div className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-playfair)] text-saffron">
                 5+
               </div>
               <div className="text-xs uppercase tracking-wider text-white/40 mt-1">
@@ -108,7 +107,7 @@ export default function Hero() {
             </div>
             <div className="w-px bg-white/10" />
             <div>
-              <div className="text-3xl font-bold font-[family-name:var(--font-playfair)] text-white">
+              <div className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-playfair)] text-white">
                 100+
               </div>
               <div className="text-xs uppercase tracking-wider text-white/40 mt-1">
@@ -117,7 +116,7 @@ export default function Hero() {
             </div>
             <div className="w-px bg-white/10" />
             <div>
-              <div className="text-3xl font-bold font-[family-name:var(--font-playfair)] text-india-green">
+              <div className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-playfair)] text-india-green">
                 1000+
               </div>
               <div className="text-xs uppercase tracking-wider text-white/40 mt-1">

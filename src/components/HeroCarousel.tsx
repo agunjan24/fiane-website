@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import Image from "next/image";
 import {
   FaFacebook,
@@ -14,10 +14,13 @@ import ScrollReveal from "./ScrollReveal";
 
 const ROTATE_MS = 5000;
 
+const SWIPE_THRESHOLD_PX = 50;
+
 export default function HeroCarousel() {
-  const photos = useSocialPhotos(6);
+  const photos = useSocialPhotos(7);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   const count = photos.length;
 
@@ -36,6 +39,22 @@ export default function HeroCarousel() {
     const id = setInterval(next, ROTATE_MS);
     return () => clearInterval(id);
   }, [next, paused, count]);
+
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+    setPaused(true);
+  };
+
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    const startX = touchStartX.current;
+    touchStartX.current = null;
+    setPaused(false);
+    if (startX === null) return;
+
+    const deltaX = e.changedTouches[0].clientX - startX;
+    if (deltaX > SWIPE_THRESHOLD_PX) prev();
+    else if (deltaX < -SWIPE_THRESHOLD_PX) next();
+  };
 
   if (count === 0) return null;
 
@@ -79,12 +98,14 @@ export default function HeroCarousel() {
 
         <ScrollReveal
           animation="reveal-scale"
-          className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/10 bg-gray-200 aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
+          className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/10 bg-gradient-to-br from-india-navy to-deep aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
         >
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 touch-pan-y"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {photos.map((post, i) => (
               <a
@@ -100,13 +121,23 @@ export default function HeroCarousel() {
                 aria-hidden={i !== idx}
                 tabIndex={i === idx ? 0 : -1}
               >
+                {/* Blurred, scaled-up backdrop so portrait photos don't leave bare corners */}
+                <Image
+                  src={post.imageUrl as string}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 1152px"
+                  className="object-cover scale-110 blur-2xl opacity-40"
+                />
+                {/* Full photo, never cropped */}
                 <Image
                   src={post.imageUrl as string}
                   alt={post.text ? post.text.slice(0, 80) : "FIANE event photo"}
                   fill
                   priority={i === 0}
                   sizes="(max-width: 1024px) 100vw, 1152px"
-                  className="object-cover"
+                  className="object-contain"
                 />
                 {/* Scrim for caption legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
@@ -126,9 +157,11 @@ export default function HeroCarousel() {
                 {/* Caption */}
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
                   <div className="max-w-2xl">
-                    <p className="text-white text-sm sm:text-lg font-medium leading-snug line-clamp-2 sm:line-clamp-3">
-                      {post.text}
-                    </p>
+                    {post.text && (
+                      <p className="text-white text-sm sm:text-lg font-medium leading-snug line-clamp-2 sm:line-clamp-3">
+                        {post.text}
+                      </p>
+                    )}
                     <span className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-white/80 group-hover:text-white transition-colors">
                       View post
                       <FaExternalLinkAlt size={10} />

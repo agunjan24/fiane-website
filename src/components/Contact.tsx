@@ -19,7 +19,7 @@ const donateLinkProps = donateIsExternal
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-28 bg-white diagonal-lines">
+    <section id="contact" className="py-28 bg-white diagonal-lines overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-saffron">

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HeroCarousel from "@/components/HeroCarousel";
+import IndiaDayParade from "@/components/IndiaDayParade";
 import Freedom250 from "@/components/Freedom250";
 import SocialCarousel from "@/components/SocialCarousel";
 import About from "@/components/About";
@@ -16,6 +17,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <HeroCarousel />
+      <IndiaDayParade />
       <Freedom250 />
       <SocialCarousel />
       <About />

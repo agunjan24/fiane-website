@@ -38,7 +38,7 @@ const values = [
 
 export default function About() {
   return (
-    <section id="about" className="py-28 bg-white diagonal-lines">
+    <section id="about" className="py-28 bg-white diagonal-lines overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <ScrollReveal className="max-w-3xl mx-auto mb-20">

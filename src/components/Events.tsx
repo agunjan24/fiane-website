@@ -82,9 +82,20 @@ export default function Events() {
                   )}
 
                   {event.isPast && (
-                    <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-50 text-gray-400 text-xs font-semibold">
-                      Completed
-                    </span>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-50 text-gray-400 text-xs font-semibold">
+                        Completed
+                      </span>
+                      {event.detailsHref && (
+                        <a
+                          href={event.detailsHref}
+                          className="inline-flex items-center gap-2 text-sm font-bold text-usa-blue hover:text-saffron transition-colors"
+                        >
+                          See the full story
+                          <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
