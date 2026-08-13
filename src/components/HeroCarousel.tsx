@@ -17,7 +17,7 @@ const ROTATE_MS = 5000;
 const SWIPE_THRESHOLD_PX = 50;
 
 export default function HeroCarousel() {
-  const photos = useSocialPhotos(7);
+  const photos = useSocialPhotos(8);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
