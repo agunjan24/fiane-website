@@ -61,7 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${playfair.variable} ${dmSans.variable} antialiased overflow-x-hidden`}>
         {children}
       </body>
     </html>

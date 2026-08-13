@@ -35,6 +35,7 @@ function FacebookEmbed() {
           border: "none",
           overflow: "hidden",
           borderRadius: "16px",
+          maxWidth: "100%",
         }}
         allowFullScreen
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -101,7 +102,7 @@ const socialCards = [
 
 export default function SocialFeed() {
   return (
-    <section id="social" className="py-28 bg-white relative">
+    <section id="social" className="py-28 bg-white relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-india-green">
