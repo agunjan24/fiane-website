@@ -72,16 +72,6 @@ export const gallerySeed: SocialPost[] = [
     comments: 0,
   },
   {
-    id: "seed-savedate",
-    platform: "facebook",
-    text: "Save the Date — celebrating Freedom, Unity & Opportunity this Fourth of July.",
-    imageUrl: "/images/gallery/save-the-date.jpg",
-    permalink: "https://www.facebook.com/FIANewEngland/",
-    timestamp: "2026-04-01T12:00:00Z",
-    likes: 0,
-    comments: 0,
-  },
-  {
     id: "seed-india-day-police",
     platform: "facebook",
     text: "Thanking the Boston Police officers who helped make the 5th International India Day Parade possible.",
