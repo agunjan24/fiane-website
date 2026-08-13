@@ -157,9 +157,11 @@ export default function HeroCarousel() {
                 {/* Caption */}
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
                   <div className="max-w-2xl">
-                    <p className="text-white text-sm sm:text-lg font-medium leading-snug line-clamp-2 sm:line-clamp-3">
-                      {post.text}
-                    </p>
+                    {post.text && (
+                      <p className="text-white text-sm sm:text-lg font-medium leading-snug line-clamp-2 sm:line-clamp-3">
+                        {post.text}
+                      </p>
+                    )}
                     <span className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-white/80 group-hover:text-white transition-colors">
                       View post
                       <FaExternalLinkAlt size={10} />

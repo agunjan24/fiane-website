@@ -14,7 +14,7 @@ export const gallerySeed: SocialPost[] = [
   {
     id: "seed-india-day-parade",
     platform: "facebook",
-    text: "The 5th International India Day Parade at Boston Harbor — floats, bands, and a ribbon-cutting with the Consul General of India in Boston.",
+    text: "The 5th International India Day Parade at Boston Harbor.",
     imageUrl: "/images/gallery/india-day-welcome-banner.jpg",
     permalink: "https://www.facebook.com/FIANewEngland/",
     timestamp: "2026-08-09T18:00:00Z",
@@ -24,7 +24,7 @@ export const gallerySeed: SocialPost[] = [
   {
     id: "seed-celebration",
     platform: "instagram",
-    text: "Honoring our community at FIANE's celebration of America's 250th — flags, awards, and pride.",
+    text: "Honoring our community at FIANE's America's 250th celebration.",
     imageUrl: "/images/gallery/community-celebration.jpg",
     permalink: "https://www.instagram.com/fia_newengland/",
     timestamp: "2026-06-27T16:00:00Z",
@@ -34,7 +34,7 @@ export const gallerySeed: SocialPost[] = [
   {
     id: "seed-independence",
     platform: "instagram",
-    text: "Independence Day festivities — music, color, and community across New England.",
+    text: "Independence Day festivities across New England.",
     imageUrl: "/images/gallery/independence-day.jpg",
     permalink: "https://www.instagram.com/fia_newengland/",
     timestamp: "2026-06-27T15:00:00Z",
@@ -44,7 +44,7 @@ export const gallerySeed: SocialPost[] = [
   {
     id: "seed-marathon",
     platform: "instagram",
-    text: "Cheering on the 130th Boston Marathon — FIANE extends best wishes to every runner.",
+    text: "",
     imageUrl: "/images/gallery/boston-marathon.jpg",
     permalink: "https://www.instagram.com/fia_newengland/",
     timestamp: "2026-04-20T14:00:00Z",
@@ -54,7 +54,7 @@ export const gallerySeed: SocialPost[] = [
   {
     id: "seed-decor",
     platform: "instagram",
-    text: "Flying the colors — decked out in Red, White & Blue for the Fourth across New England.",
+    text: "Flying the colors — Red, White & Blue for the Fourth.",
     imageUrl: "/images/gallery/patriotic-decor.jpg",
     permalink: "https://www.instagram.com/fia_newengland/",
     timestamp: "2026-06-20T13:00:00Z",
@@ -74,7 +74,7 @@ export const gallerySeed: SocialPost[] = [
   {
     id: "seed-india-day-police",
     platform: "facebook",
-    text: "Thanking the Boston Police officers who helped make the 5th International India Day Parade possible.",
+    text: "Thanking the Boston Police officers who supported the parade.",
     imageUrl: "/images/gallery/india-day-boston-police.jpg",
     permalink: "https://www.facebook.com/FIANewEngland/",
     timestamp: "2026-08-09T19:00:00Z",
