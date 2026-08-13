@@ -98,7 +98,7 @@ export default function HeroCarousel() {
 
         <ScrollReveal
           animation="reveal-scale"
-          className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/10 bg-gray-200 aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
+          className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/10 bg-gradient-to-br from-india-navy to-deep aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
         >
           <div
             className="absolute inset-0 touch-pan-y"
@@ -121,13 +121,23 @@ export default function HeroCarousel() {
                 aria-hidden={i !== idx}
                 tabIndex={i === idx ? 0 : -1}
               >
+                {/* Blurred, scaled-up backdrop so portrait photos don't leave bare corners */}
+                <Image
+                  src={post.imageUrl as string}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 1152px"
+                  className="object-cover scale-110 blur-2xl opacity-40"
+                />
+                {/* Full photo, never cropped */}
                 <Image
                   src={post.imageUrl as string}
                   alt={post.text ? post.text.slice(0, 80) : "FIANE event photo"}
                   fill
                   priority={i === 0}
                   sizes="(max-width: 1024px) 100vw, 1152px"
-                  className="object-cover"
+                  className="object-contain"
                 />
                 {/* Scrim for caption legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
