@@ -84,7 +84,7 @@ export const events: Event[] = [
   },
   {
     id: "7",
-    title: "250 Fruit-Bearing Trees Initiative",
+    title: "America's 250th Independence Day Celebration",
     date: "June 27, 2026",
     time: "All Day",
     location: "Northborough, MA",
