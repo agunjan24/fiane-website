@@ -8,6 +8,8 @@ export interface Event {
   image: string;
   isPast: boolean;
   registrationUrl?: string;
+  /** In-page anchor to a dedicated section with more detail (e.g. "#freedom250"). */
+  detailsHref?: string;
 }
 
 export const events: Event[] = [
@@ -45,6 +47,7 @@ export const events: Event[] = [
       "Celebrated India's 80th Independence Day with our grand parade featuring cultural performances, floats, food stalls, and community pride.",
     image: "/images/parade.svg",
     isPast: true,
+    detailsHref: "#india-day-parade",
   },
   {
     id: "4",
@@ -78,5 +81,17 @@ export const events: Event[] = [
       "Honoring women leaders from diverse fields with cultural performances, keynote speakers, and networking.",
     image: "/images/women-day.svg",
     isPast: true,
+  },
+  {
+    id: "7",
+    title: "250 Fruit-Bearing Trees Initiative",
+    date: "June 27, 2026",
+    time: "All Day",
+    location: "Northborough, MA",
+    description:
+      "Celebrated America's 250th Independence Day by planting 250 fruit-bearing trees — one for every year of the nation's freedom — with veterans, elected officials, and families.",
+    image: "/images/gallery/tree-planting.jpg",
+    isPast: true,
+    detailsHref: "#freedom250",
   },
 ];

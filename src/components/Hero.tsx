@@ -85,7 +85,7 @@ export default function Hero() {
               href="#events"
               className="group inline-flex items-center gap-2 px-8 py-3.5 text-base font-semibold text-deep bg-white rounded-full hover:bg-saffron hover:text-white transition-all duration-300 shadow-lg shadow-black/20"
             >
-              Upcoming Events
+              See Our Events
               <FaArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
             </a>
             <a
