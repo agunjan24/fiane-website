@@ -14,6 +14,9 @@ const layout = [
   { span: "md:col-span-2", aspect: "aspect-[2/1]" },
   { span: "", aspect: "aspect-square" },
   { span: "", aspect: "aspect-square" },
+  { span: "", aspect: "aspect-square" },
+  { span: "", aspect: "aspect-square" },
+  { span: "md:col-span-2", aspect: "aspect-[2/1]" },
 ];
 
 // Shown only when no live photos are available (no token / mock data), so the
