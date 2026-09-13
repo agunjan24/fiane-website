@@ -10,6 +10,7 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 import { useSocialPhotos } from "@/hooks/useSocialPhotos";
+import { gallerySeed } from "@/data/gallerySeed";
 import ScrollReveal from "./ScrollReveal";
 
 const ROTATE_MS = 5000;
@@ -17,7 +18,9 @@ const ROTATE_MS = 5000;
 const SWIPE_THRESHOLD_PX = 50;
 
 export default function HeroCarousel() {
-  const photos = useSocialPhotos(15);
+  // Rotate through every seed photo; a hardcoded count silently drops the tail
+  // whenever the seed list grows.
+  const photos = useSocialPhotos(gallerySeed.length);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);

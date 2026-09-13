@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import HeroCarousel from "@/components/HeroCarousel";
 import IndiaDayParade from "@/components/IndiaDayParade";
 import Freedom250 from "@/components/Freedom250";
+import Sept11Remembrance from "@/components/Sept11Remembrance";
 import SocialCarousel from "@/components/SocialCarousel";
 import About from "@/components/About";
 import Events from "@/components/Events";
@@ -19,6 +20,7 @@ export default function Home() {
       <HeroCarousel />
       <IndiaDayParade />
       <Freedom250 />
+      <Sept11Remembrance />
       <SocialCarousel />
       <About />
       <Events />

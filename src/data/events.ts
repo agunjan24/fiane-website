@@ -14,6 +14,18 @@ export interface Event {
 
 export const events: Event[] = [
   {
+    id: "8",
+    title: "9/11 25th Anniversary Remembrance Ceremony",
+    date: "September 11, 2026",
+    time: "Evening",
+    location: "Westborough Fire Station, Westborough, MA",
+    description:
+      "Gathered with Westborough firefighters and the community to honor the lives lost on September 11, 2001, with a moment of silence and wreath-laying at the steel-beam memorial.",
+    image: "/images/gallery/sept11-memorial-wreaths.jpg",
+    isPast: true,
+    detailsHref: "#september-11-remembrance",
+  },
+  {
     id: "1",
     title: "Holi Festival Celebration 2026",
     date: "March 28, 2026",
