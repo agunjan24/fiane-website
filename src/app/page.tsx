@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HeroCarousel from "@/components/HeroCarousel";
+import SaveTheDate from "@/components/SaveTheDate";
 import IndiaDayParade from "@/components/IndiaDayParade";
 import Freedom250 from "@/components/Freedom250";
 import Sept11Remembrance from "@/components/Sept11Remembrance";
@@ -18,6 +19,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <HeroCarousel />
+      <SaveTheDate />
       <IndiaDayParade />
       <Freedom250 />
       <Sept11Remembrance />

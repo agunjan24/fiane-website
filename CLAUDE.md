@@ -32,11 +32,12 @@ There is no test suite.
 ## Architecture
 
 The site is a single page (`src/app/page.tsx`) that stacks section components in fixed order:
-Navbar → Hero → HeroCarousel → SocialCarousel → About → Events → SocialFeed → Gallery → Contact →
-Footer. Each lives in `src/components/` as a self-contained section.
+Navbar → Hero → HeroCarousel → SaveTheDate → IndiaDayParade → Freedom250 → Sept11Remembrance →
+SocialCarousel → About → Events → SocialFeed → Gallery → Contact → Footer. Each lives in `src/components/` as a self-contained section.
 
 **Content vs. presentation.** Editable content is separated into typed modules under `src/data/`
-(`events.ts`, `social.ts`, `team.ts`, `gallerySeed.ts`) — each exports a TypeScript `interface`
+(`events.ts`, `social.ts`, `team.ts`, `gallerySeed.ts`, plus per-section files like
+`saveTheDate.ts` and `indiaDay2026.ts`) — each exports a TypeScript `interface`
 plus a typed array. To change events, posts, or seed photos, edit these files rather than the
 components. `Events` shows upcoming + recent events merged into one list sorted by date descending
 (reverse chronological); it's a server component (no toggle/state).
