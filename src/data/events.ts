@@ -54,10 +54,9 @@ export const events: Event[] = [
     time: "11:00 AM - 4:00 PM",
     location: "Boston Common, Boston, MA",
     description:
-      "Join us for a vibrant Holi celebration! Enjoy colors, music, dance performances, and traditional Indian food. Fun for the whole family.",
+      "A vibrant Holi celebration with colors, music, dance performances, and traditional Indian food. Fun for the whole family.",
     image: "/images/holi.svg",
-    isPast: false,
-    registrationUrl: "#",
+    isPast: true,
   },
   {
     id: "2",
@@ -68,8 +67,7 @@ export const events: Event[] = [
     description:
       "Free health screenings, wellness workshops, and consultations with healthcare professionals. Open to all community members.",
     image: "/images/health.svg",
-    isPast: false,
-    registrationUrl: "#",
+    isPast: true,
   },
   {
     id: "3",
