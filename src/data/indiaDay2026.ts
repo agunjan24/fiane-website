@@ -9,6 +9,9 @@ export interface IndiaDayPhoto {
   caption: string;
 }
 
+/** Public heyzine flipbook of the "5th India Day Chronicle" souvenir magazine. */
+export const CHRONICLE_FLIPBOOK_URL = "https://heyzine.com/flip-book/0f7c2ca5df.html";
+
 export const indiaDayMeta = {
   eyebrow: "5th International India Day Parade · August 9, 2026 · Boston Harbor",
   intro:

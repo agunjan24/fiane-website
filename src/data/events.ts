@@ -14,6 +14,28 @@ export interface Event {
 
 export const events: Event[] = [
   {
+    id: "10",
+    title: "6th International India Day Parade",
+    date: "August 8, 2027",
+    time: "To be announced",
+    location: "Venue to be announced",
+    description:
+      "Save the date! FIA New England's 6th International India Day Parade returns to celebrate India's Independence Day with floats, bands, cultural performances, and community pride.",
+    image: "/images/save-the-date/india-day-parade-2027.jpg",
+    isPast: false,
+  },
+  {
+    id: "9",
+    title: "July 4th Independence Day Celebration 2027",
+    date: "June 26, 2027",
+    time: "To be announced",
+    location: "Venue to be announced",
+    description:
+      "Save the date! Join FIA New England as we celebrate America's Independence Day together with family, friends, and neighbors.",
+    image: "/images/save-the-date/july4-celebration-2027.jpg",
+    isPast: false,
+  },
+  {
     id: "8",
     title: "9/11 25th Anniversary Remembrance Ceremony",
     date: "September 11, 2026",
