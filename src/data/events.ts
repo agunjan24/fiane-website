@@ -14,6 +14,18 @@ export interface Event {
 
 export const events: Event[] = [
   {
+    id: "9",
+    title: "Diwali Celebration & Food Donation Ceremony",
+    date: "November 7, 2026",
+    time: "Evening",
+    location: "Rhode Island State House, Providence, RI",
+    description:
+      "Brought the Festival of Lights to the Rhode Island State House with the lighting of the lamp, dance, and a children's Ramayana — and donated more than 20,000 pounds of food to Rhode Island families.",
+    image: "/images/gallery/diwali-lamp-lighting.jpg",
+    isPast: true,
+    detailsHref: "#diwali-2026",
+  },
+  {
     id: "8",
     title: "9/11 25th Anniversary Remembrance Ceremony",
     date: "September 11, 2026",

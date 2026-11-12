@@ -16,6 +16,8 @@
   --color-cream: #FFFAF3;
   --color-warm-white: #FFFDF9;
   --color-deep: #0F0F23;
+  --color-maroon: #5A1020;
+  --color-maroon-deep: #3A0A14;
   --font-display: var(--font-playfair);
   --font-sans: var(--font-dm-sans);
 }
@@ -134,6 +136,23 @@ body {
   animation: twinkle 4s ease-in-out infinite;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+/* Diya flame flicker (Diwali section) */
+@keyframes diya-flicker {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  30% { transform: scale(1.06, 0.96) rotate(-2deg); opacity: 0.9; }
+  60% { transform: scale(0.96, 1.05) rotate(2deg); opacity: 1; }
+}
+
+.diya-flame {
+  animation: diya-flicker 2.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diya-flame { animation: none; }
 }
 
 /* Chakra spin */

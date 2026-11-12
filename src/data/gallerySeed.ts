@@ -1,4 +1,5 @@
 import { type SocialPost } from "./social";
+import { DIWALI_POST_URL } from "./diwali2026";
 
 /**
  * Seed gallery photos — real images pulled from FIANE's own Instagram/Facebook,
@@ -11,6 +12,16 @@ import { type SocialPost } from "./social";
  * and update this list. Strongest real photos are ordered first.
  */
 export const gallerySeed: SocialPost[] = [
+  {
+    id: "seed-diwali-group",
+    platform: "facebook",
+    text: "Diwali 2026 at the Rhode Island State House.",
+    imageUrl: "/images/gallery/diwali-community-group.jpg",
+    permalink: DIWALI_POST_URL,
+    timestamp: "2026-11-07T23:30:00Z",
+    likes: 0,
+    comments: 0,
+  },
   {
     id: "seed-india-day-parade",
     platform: "facebook",
@@ -38,6 +49,26 @@ export const gallerySeed: SocialPost[] = [
     imageUrl: "/images/gallery/india-day-tricolor-skyline.jpg",
     permalink: "https://www.instagram.com/fia_newengland/",
     timestamp: "2026-08-14T22:15:00Z",
+    likes: 0,
+    comments: 0,
+  },
+  {
+    id: "seed-diwali-ramayana",
+    platform: "facebook",
+    text: "Our little stars brought the Ramayana to life.",
+    imageUrl: "/images/gallery/diwali-ramayana-children.jpg",
+    permalink: DIWALI_POST_URL,
+    timestamp: "2026-11-07T23:00:00Z",
+    likes: 0,
+    comments: 0,
+  },
+  {
+    id: "seed-diwali-lamp",
+    platform: "facebook",
+    text: "Lighting the Diwali lamp.",
+    imageUrl: "/images/gallery/diwali-lamp-lighting.jpg",
+    permalink: DIWALI_POST_URL,
+    timestamp: "2026-11-07T22:30:00Z",
     likes: 0,
     comments: 0,
   },
