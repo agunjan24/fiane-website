@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HeroCarousel from "@/components/HeroCarousel";
 import SaveTheDate from "@/components/SaveTheDate";
+import Diwali2026 from "@/components/Diwali2026";
 import IndiaDayParade from "@/components/IndiaDayParade";
 import Freedom250 from "@/components/Freedom250";
 import Sept11Remembrance from "@/components/Sept11Remembrance";
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <HeroCarousel />
       <SaveTheDate />
+      <Diwali2026 />
       <IndiaDayParade />
       <Freedom250 />
       <Sept11Remembrance />

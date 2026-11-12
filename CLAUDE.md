@@ -32,8 +32,9 @@ There is no test suite.
 ## Architecture
 
 The site is a single page (`src/app/page.tsx`) that stacks section components in fixed order:
-Navbar → Hero → HeroCarousel → SaveTheDate → IndiaDayParade → Freedom250 → Sept11Remembrance →
-SocialCarousel → About → Events → SocialFeed → Gallery → Contact → Footer. Each lives in `src/components/` as a self-contained section.
+Navbar → Hero → HeroCarousel → SaveTheDate → event recap sections (newest first: Diwali2026 →
+IndiaDayParade → Freedom250 → Sept11Remembrance) → SocialCarousel → About → Events → SocialFeed →
+Gallery → Contact → Footer. Each lives in `src/components/` as a self-contained section.
 
 **Content vs. presentation.** Editable content is separated into typed modules under `src/data/`
 (`events.ts`, `social.ts`, `team.ts`, `gallerySeed.ts`, plus per-section files like
@@ -41,6 +42,13 @@ SocialCarousel → About → Events → SocialFeed → Gallery → Contact → F
 plus a typed array. To change events, posts, or seed photos, edit these files rather than the
 components. `Events` shows upcoming + recent events merged into one list sorted by date descending
 (reverse chronological); it's a server component (no toggle/state).
+
+**Event recap sections.** Each recap has a content module in `src/data/` (e.g. `diwali2026.ts`)
+and a section component. To add one, copy that pair, drop resized photos in
+`public/images/gallery/`, add the section to `page.tsx` above the older recaps, and add an entry
+with `detailsHref` to `events.ts`. `PhotoLightbox` (client, native `<dialog>`) is the shared
+full-screen viewer; `DiwaliPhotos.tsx` shows how to drive it. Raw source photos live outside the
+repo in sibling folders (`../DiwaliRaw`, `../Sept11Raw`).
 
 **Social feed data flow.** `src/lib/social.ts` holds the shared fetch logic (`getSocialPosts()`):
 it pulls the latest Facebook + Instagram posts via the Graph API and falls back to `mockSocialPosts`
