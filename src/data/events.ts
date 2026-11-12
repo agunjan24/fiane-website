@@ -14,7 +14,29 @@ export interface Event {
 
 export const events: Event[] = [
   {
+    id: "10",
+    title: "6th International India Day Parade",
+    date: "August 8, 2027",
+    time: "To be announced",
+    location: "Venue to be announced",
+    description:
+      "Save the date! FIA New England's 6th International India Day Parade returns to celebrate India's Independence Day with floats, bands, cultural performances, and community pride.",
+    image: "/images/save-the-date/india-day-parade-2027.jpg",
+    isPast: false,
+  },
+  {
     id: "9",
+    title: "July 4th Independence Day Celebration 2027",
+    date: "June 26, 2027",
+    time: "To be announced",
+    location: "Venue to be announced",
+    description:
+      "Save the date! Join FIA New England as we celebrate America's Independence Day together with family, friends, and neighbors.",
+    image: "/images/save-the-date/july4-celebration-2027.jpg",
+    isPast: false,
+  },
+  {
+    id: "11",
     title: "Diwali Celebration & Food Donation Ceremony",
     date: "November 7, 2026",
     time: "Evening",
@@ -44,10 +66,9 @@ export const events: Event[] = [
     time: "11:00 AM - 4:00 PM",
     location: "Boston Common, Boston, MA",
     description:
-      "Join us for a vibrant Holi celebration! Enjoy colors, music, dance performances, and traditional Indian food. Fun for the whole family.",
+      "A vibrant Holi celebration with colors, music, dance performances, and traditional Indian food. Fun for the whole family.",
     image: "/images/holi.svg",
-    isPast: false,
-    registrationUrl: "#",
+    isPast: true,
   },
   {
     id: "2",
@@ -58,8 +79,7 @@ export const events: Event[] = [
     description:
       "Free health screenings, wellness workshops, and consultations with healthcare professionals. Open to all community members.",
     image: "/images/health.svg",
-    isPast: false,
-    registrationUrl: "#",
+    isPast: true,
   },
   {
     id: "3",

@@ -1,7 +1,12 @@
 import Image from "next/image";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaExternalLinkAlt } from "react-icons/fa";
 import ScrollReveal from "./ScrollReveal";
-import { indiaDayMeta, indiaDayStats, indiaDayPhotos } from "@/data/indiaDay2026";
+import {
+  CHRONICLE_FLIPBOOK_URL,
+  indiaDayMeta,
+  indiaDayStats,
+  indiaDayPhotos,
+} from "@/data/indiaDay2026";
 
 export default function IndiaDayParade() {
   const [hero, ...rest] = indiaDayPhotos;
@@ -98,6 +103,40 @@ export default function IndiaDayParade() {
                 </p>
               </div>
             ))}
+          </div>
+        </ScrollReveal>
+
+        {/* Flipbook: the India Day Chronicle souvenir magazine */}
+        <ScrollReveal className="mt-16" animation="reveal-scale">
+          <div className="rounded-3xl bg-white/70 border border-saffron-dark/15 p-4 sm:p-6 backdrop-blur-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5 px-2">
+              <div>
+                <h3 className="text-xl font-bold font-[family-name:var(--font-playfair)] text-gray-900">
+                  The 5th India Day Chronicle
+                </h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Flip through our souvenir magazine of the parade &mdash; the
+                  messages, the people, and the moments that made the day.
+                </p>
+              </div>
+              <a
+                href={CHRONICLE_FLIPBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 self-start sm:self-auto shrink-0 px-5 py-2.5 text-sm font-semibold text-white bg-saffron-dark rounded-full hover:bg-india-green transition-all hover:shadow-lg hover:shadow-saffron/25"
+              >
+                Open the Chronicle <FaExternalLinkAlt size={12} />
+              </a>
+            </div>
+            <div className="relative w-full aspect-[4/3] sm:aspect-video rounded-2xl overflow-hidden bg-gray-100">
+              <iframe
+                src={CHRONICLE_FLIPBOOK_URL}
+                title="5th International India Day Parade chronicle flipbook"
+                className="absolute inset-0 w-full h-full border-0"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
           </div>
         </ScrollReveal>
       </div>
